@@ -1,0 +1,6 @@
+Scenario,Drivers,Restaurants,Completed Orders,Canceled Orders,Average Waiting Time
+Very Busy,3,2,265,66,24.82
+Normal,5,3,329,0,8.64
+Medium Improvement,7,3,316,0,8.5
+More Drivers,10,4,338,0,7.49
+High Optimization,15,5,336,0,7.58

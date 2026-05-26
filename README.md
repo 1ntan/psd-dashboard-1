@@ -1,19 +1,74 @@
-# :earth_americas: GDP dashboard template
+# 🍔 Food Delivery Online Simulation Dashboard
 
-A simple Streamlit app showing the GDP of different countries in the world.
+Project ini merupakan simulasi sistem food delivery online menggunakan:
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gdp-dashboard-template.streamlit.app/)
+- Agent-Based Modeling (ABM)
+- Discrete Event Simulation (DES)
+- Monte Carlo Simulation
 
-### How to run it on your own machine
+Simulasi dibuat menggunakan Python, SimPy, dan Streamlit untuk menganalisis performa sistem food delivery berdasarkan beberapa skenario.
 
-1. Install the requirements
+---
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+# 📌 Tujuan Project
 
-2. Run the app
+Menganalisis performa sistem food delivery online berdasarkan:
+- jumlah driver
+- jumlah restaurant
+- waiting time customer
+- completed order
+- canceled order
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+---
+
+# ⚙️ Metode Simulasi
+
+## 1. Agent-Based Modeling (ABM)
+Digunakan untuk memodelkan interaksi antar agent:
+- Customer
+- Driver
+- Restaurant
+
+## 2. Discrete Event Simulation (DES)
+Digunakan untuk memodelkan event:
+- order masuk
+- cooking process
+- delivery process
+
+## 3. Monte Carlo Simulation
+Digunakan untuk menjalankan simulasi sebanyak 1000 iterasi pada setiap skenario.
+
+---
+
+# 📊 Skenario Simulasi
+
+| Scenario | Drivers | Restaurants |
+|---|---|---|
+| Very Busy | 3 | 2 |
+| Normal | 5 | 3 |
+| Medium Improvement | 7 | 3 |
+| More Drivers | 10 | 4 |
+| High Optimization | 15 | 5 |
+
+---
+
+# 📈 Dashboard Features
+
+- Waiting Time Visualization
+- Completed Orders Visualization
+- Canceled Orders Visualization
+- Monte Carlo Simulation Visualization
+- Interactive Manual Simulation Input
+
+---
+
+# 🖥️ Dashboard Preview
+
+Tambahkan screenshot dashboard di sini.
+
+---
+
+# 🚀 Cara Menjalankan Dashboard
+
+```bash
+streamlit run streamlit_app.py
