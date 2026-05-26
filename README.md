@@ -60,14 +60,6 @@ Digunakan untuk menjalankan simulasi sebanyak 1000 iterasi pada setiap skenario.
 - Monte Carlo Simulation Visualization
 - Interactive Manual Simulation Input
 
----
-
-# 🖥️ Dashboard Preview
-
-Tambahkan screenshot dashboard di sini.
-
----
-
 # 🚀 Cara Menjalankan Dashboard
 
 ```bash
