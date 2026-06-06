@@ -336,7 +336,7 @@ with st.container(border=True):
         height=400
     )
 
-      st.plotly_chart(
+    st.plotly_chart(
         fig_completed,
         use_container_width=True,
         config=plotly_config
