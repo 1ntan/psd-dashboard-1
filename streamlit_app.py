@@ -21,43 +21,37 @@ st.markdown("""
 
 /* Background utama */
 .stApp {
-    background-color: #0F172A;
+    background-color: #FFF7ED;
 }
 
 /* Sidebar */
 section[data-testid="stSidebar"] {
-    background-color: #1E293B;
+    background-color: #FED7AA;
 }
 
 /* Judul */
 h1 {
-    color: #F97316 !important;
+    color: #EA580C !important;
     font-size: 50px !important;
     font-weight: bold !important;
 }
 
 /* Subjudul */
 h2, h3 {
-    color: #FDBA74 !important;
+    color: #C2410C !important;
 }
 
-/* Text biasa */
+/* Text */
 p, li, label {
-    color: white !important;
+    color: #334155 !important;
 }
 
 /* Metric card */
 [data-testid="metric-container"] {
-    background-color: #1E293B;
+    background-color: white;
     border: 2px solid #F97316;
     padding: 15px;
     border-radius: 15px;
-}
-
-/* Dataframe */
-[data-testid="stDataFrame"] {
-    background-color: white;
-    border-radius: 10px;
 }
 
 /* Tombol */
@@ -66,11 +60,6 @@ p, li, label {
     color: white;
     border-radius: 10px;
     border: none;
-}
-
-/* Selectbox */
-.stMultiSelect {
-    background-color: #1E293B;
 }
 
 </style>
@@ -98,10 +87,13 @@ df = load_data()
 st.title("🍔 Food Delivery Online Simulation Dashboard")
 
 st.markdown("""
-Dashboard ini menampilkan hasil simulasi sistem food delivery online menggunakan:
-- Agent-Based Modeling (ABM)
-- Discrete Event Simulation (DES)
-- Monte Carlo Simulation
+Dashboard ini menampilkan hasil simulasi sistem food delivery online menggunakan pendekatan Agent-Based Modeling (ABM).
+
+Tujuan simulasi adalah menganalisis:
+- Waktu tunggu pelanggan
+- Jumlah pesanan yang berhasil diselesaikan
+- Jumlah pesanan yang dibatalkan
+- Performa sistem pada berbagai skenario operasional
 """)
 
 # =========================================================
@@ -218,6 +210,30 @@ st.subheader("📊 Simulation Results")
 st.dataframe(df)
 
 # =========================================================
+# SCENARIO DESCRIPTION
+# =========================================================
+
+st.subheader("📖 Scenario Description")
+
+scenario_desc = pd.DataFrame({
+    "Scenario": [
+        "Normal",
+        "Peak Hour",
+        "Extra Driver",
+        "Low Patience"
+    ],
+    "Description": [
+        "Jumlah driver dan order seimbang",
+        "Jumlah order meningkat saat jam sibuk",
+        "Penambahan jumlah driver",
+        "Pelanggan memiliki tingkat kesabaran rendah"
+    ]
+})
+
+st.table(scenario_desc)
+
+
+# =========================================================
 # SCENARIO FILTER
 # =========================================================
 
@@ -309,11 +325,32 @@ with col3:
     )
 
 # =========================================================
+# Best Scenario
+# =========================================================
+
+st.subheader("🏆 Best Scenario")
+
+best_scenario = filtered_df.loc[
+    filtered_df["Average Waiting Time"].idxmin()
+]
+
+st.success(
+    f"""
+    Skenario terbaik adalah: {best_scenario['Scenario']}
+    
+    Average Waiting Time:
+    {best_scenario['Average Waiting Time']} menit
+    """
+)
+
+# =========================================================
 # CONCLUSION
 # =========================================================
 
 st.subheader("📝 Conclusion")
 
 st.write("""
-Hasil simulasi menunjukkan bahwa penambahan jumlah driver dan kapasitas restaurant dapat mengurangi waiting time pelanggan dan meningkatkan performa sistem food delivery online.
+Berdasarkan hasil simulasi, performa sistem food delivery dipengaruhi oleh jumlah driver, kapasitas restoran, dan tingkat kedatangan pelanggan.
+
+Skenario dengan jumlah driver yang lebih banyak cenderung menghasilkan waktu tunggu yang lebih rendah, tingkat pembatalan yang lebih kecil, serta kepuasan pelanggan yang lebih tinggi dibandingkan skenario lainnya.
 """)
