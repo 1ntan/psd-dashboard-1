@@ -72,12 +72,8 @@ p, li, label {
 @st.cache_data
 def load_data():
     DATA_FILENAME = Path(__file__).parent / "data/scenario_results.csv"
-    
-
     df = pd.read_csv(DATA_FILENAME)
-
     return df
-
 df = load_data()
 
 # =========================================================
@@ -151,9 +147,7 @@ estimated_canceled_orders = int(
 # =========================================================
 
 with st.container(border=True):
-
     st.subheader("🧪 Manual Simulation Test")
-
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -192,9 +186,7 @@ manual_df = pd.DataFrame({
 })
 
 with st.container(border=True):
-
     st.subheader("📊 Manual Simulation Visualization")
-
     st.bar_chart(
         manual_df,
         x="Metric",
@@ -206,7 +198,6 @@ with st.container(border=True):
 # =========================================================
 
 st.subheader("📊 Simulation Results")
-
 st.dataframe(df)
 
 # =========================================================
@@ -214,7 +205,6 @@ st.dataframe(df)
 # =========================================================
 
 st.subheader("📖 Scenario Description")
-
 scenario_desc = pd.DataFrame({
     "Scenario": [
         "Normal",
@@ -238,7 +228,6 @@ st.table(scenario_desc)
 # =========================================================
 
 scenarios = df["Scenario"].unique()
-
 selected_scenarios = st.multiselect(
     "Select Scenario",
     scenarios,
@@ -250,13 +239,24 @@ filtered_df = df[
 ]
 
 # =========================================================
+# CANCELLATION RATE
+# =========================================================
+
+filtered_df = filtered_df.copy()
+filtered_df["Cancellation Rate (%)"] = (
+    filtered_df["Canceled Orders"] /
+    (
+        filtered_df["Completed Orders"] +
+        filtered_df["Canceled Orders"]
+    )
+) * 100
+
+# =========================================================
 # WAITING TIME CHART
 # =========================================================
 
 with st.container(border=True):
-
     st.subheader("⏳ Average Waiting Time")
-
     st.line_chart(
         filtered_df,
         x="Scenario",
@@ -268,9 +268,7 @@ with st.container(border=True):
 # =========================================================
 
 with st.container(border=True):
-
     st.subheader("✅ Completed Orders")
-
     st.bar_chart(
         filtered_df,
         x="Scenario",
@@ -282,9 +280,7 @@ with st.container(border=True):
 # =========================================================
 
 with st.container(border=True):
-
     st.subheader("❌ Canceled Orders")
-
     st.bar_chart(
         filtered_df,
         x="Scenario",
@@ -292,13 +288,23 @@ with st.container(border=True):
     )
 
 # =========================================================
+# CANCELLATION RATE CHART
+# =========================================================
+
+with st.container(border=True):
+    st.subheader("📉 Cancellation Rate (%)")
+    st.bar_chart(
+        filtered_df,
+        x="Scenario",
+        y="Cancellation Rate (%)"
+    )
+
+# =========================================================
 # METRICS
 # =========================================================
 
 st.subheader("📌 Summary Metrics")
-
 col1, col2, col3 = st.columns(3)
-
 with col1:
     st.metric(
         "Average Waiting Time",
@@ -325,7 +331,7 @@ with col3:
     )
 
 # =========================================================
-# Best Scenario
+# BEST SCENARIO
 # =========================================================
 
 st.subheader("🏆 Best Scenario")
@@ -336,10 +342,10 @@ best_scenario = filtered_df.loc[
 
 st.success(
     f"""
-    Skenario terbaik adalah: {best_scenario['Scenario']}
-    
-    Average Waiting Time:
-    {best_scenario['Average Waiting Time']} menit
+    Scenario : {best_scenario['Scenario']}
+    Average Waiting Time : {best_scenario['Average Waiting Time']} menit
+    Completed Orders : {best_scenario['Completed Orders']}
+    Canceled Orders : {best_scenario['Canceled Orders']}
     """
 )
 
@@ -351,6 +357,5 @@ st.subheader("📝 Conclusion")
 
 st.write("""
 Berdasarkan hasil simulasi, performa sistem food delivery dipengaruhi oleh jumlah driver, kapasitas restoran, dan tingkat kedatangan pelanggan.
-
 Skenario dengan jumlah driver yang lebih banyak cenderung menghasilkan waktu tunggu yang lebih rendah, tingkat pembatalan yang lebih kecil, serta kepuasan pelanggan yang lebih tinggi dibandingkan skenario lainnya.
 """)
