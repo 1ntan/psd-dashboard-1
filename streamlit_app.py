@@ -223,7 +223,11 @@ scenario_desc = pd.DataFrame({
     ]
 })
 
-st.table(scenario_desc)
+st.dataframe(
+    scenario_desc,
+    use_container_width=True,
+    hide_index=True
+)
 
 st.info(
     """
