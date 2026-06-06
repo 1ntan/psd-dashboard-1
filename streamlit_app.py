@@ -206,28 +206,30 @@ st.dataframe(df)
 
 st.subheader("📖 Scenario Description")
 
-scenario_desc = pd.DataFrame({
-    "Scenario": [
-        "Very Busy",
-        "Normal",
-        "Medium Improvement",
-        "More Drivers",
-        "High Optimization"
-    ],
-    "Description": [
-        "Kondisi beban pesanan sangat tinggi sehingga antrean dan waktu tunggu cenderung meningkat.",
-        "Kondisi operasional normal dengan keseimbangan antara jumlah pesanan dan sumber daya.",
-        "Peningkatan sumber daya untuk mengurangi antrean dan memperbaiki performa layanan.",
-        "Fokus pada penambahan kapasitas pengantaran untuk mempercepat proses delivery.",
-        "Kondisi optimal dengan pengelolaan sumber daya yang lebih efisien."
-    ]
-})
+with st.expander("Very Busy"):
+    st.write(
+        "Kondisi beban pesanan sangat tinggi sehingga antrean dan waktu tunggu cenderung meningkat."
+    )
 
-st.dataframe(
-    scenario_desc,
-    use_container_width=True,
-    hide_index=True
-)
+with st.expander("Normal"):
+    st.write(
+        "Kondisi operasional normal dengan keseimbangan antara jumlah pesanan dan sumber daya."
+    )
+
+with st.expander("Medium Improvement"):
+    st.write(
+        "Peningkatan sumber daya untuk mengurangi antrean dan memperbaiki performa layanan."
+    )
+
+with st.expander("More Drivers"):
+    st.write(
+        "Fokus pada penambahan kapasitas pengantaran untuk mempercepat proses delivery."
+    )
+
+with st.expander("High Optimization"):
+    st.write(
+        "Kondisi optimal dengan pengelolaan sumber daya yang lebih efisien."
+    )
 
 st.info(
     """
