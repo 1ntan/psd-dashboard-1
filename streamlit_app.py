@@ -202,7 +202,13 @@ with st.container(border=True):
         manual_df,
         x="Metric",
         y="Value",
-        text="Value"
+        text="Value",
+        color="Metric",
+        color_discrete_map={
+            "Waiting Time": "#F97316",
+            "Completed Orders": "#22C55E",
+            "Canceled Orders": "#EF4444"
+        }
     )
 
     fig_manual.update_layout(
@@ -479,29 +485,28 @@ best_scenario = filtered_df.loc[
 ]
 
 st.success(
-    f"Skenario terbaik: {best_scenario['Scenario']}"
+    f"Skenario terbaik berdasarkan waktu tunggu pelanggan adalah {best_scenario['Scenario']}."
 )
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
     st.metric(
-        "Waktu Tunggu",
+        "⏳ Waktu Tunggu",
         f"{best_scenario['Average Waiting Time']} menit"
     )
 
 with col2:
     st.metric(
-        "Pesanan Selesai",
+        "✅ Pesanan Selesai",
         int(best_scenario["Completed Orders"])
     )
 
 with col3:
     st.metric(
-        "Pesanan Dibatalkan",
+        "❌ Pesanan Dibatalkan",
         int(best_scenario["Canceled Orders"])
     )
-
 # =========================================================
 # CONCLUSION
 # =========================================================
