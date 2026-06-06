@@ -397,7 +397,6 @@ with st.container(border=True):
 # =========================================================
 
 with st.container(border=True):
-
     st.subheader("📊 Perbandingan Antar Skenario")
 
     comparison_df = filtered_df.melt(
@@ -424,7 +423,7 @@ with st.container(border=True):
         height=450
     )
 
-   st.plotly_chart(
+    st.plotly_chart(
         fig_compare,
         use_container_width=True,
         config=plotly_config
