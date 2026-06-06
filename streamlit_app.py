@@ -96,7 +96,7 @@ Tujuan simulasi adalah menganalisis:
 # MANUAL INPUT SIMULATION
 # =========================================================
 
-st.sidebar.header("⚙️ Simulation Input")
+st.sidebar.header("⚙️ Parameter Simulasi)
 
 input_drivers = st.sidebar.slider(
     "Number of Drivers",
@@ -147,7 +147,7 @@ estimated_canceled_orders = int(
 # =========================================================
 
 with st.container(border=True):
-    st.subheader("🧪 Manual Simulation Test")
+    st.subheader("🧪 Simulasi Interaktif")
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -186,7 +186,7 @@ manual_df = pd.DataFrame({
 })
 
 with st.container(border=True):
-    st.subheader("📊 Manual Simulation Visualization")
+    st.subheader("📊 Visualisasi Simulasi")
     st.bar_chart(
         manual_df,
         x="Metric",
@@ -197,14 +197,14 @@ with st.container(border=True):
 # SHOW DATA
 # =========================================================
 
-st.subheader("📊 Simulation Results")
+st.subheader("📊 Hasil Simulasi")
 st.dataframe(df)
 
 # =========================================================
 # SCENARIO DESCRIPTION
 # =========================================================
 
-st.subheader("📖 Scenario Description")
+st.subheader("📖 Deskripsi Skenario")
 
 with st.expander("Very Busy"):
     st.write(
@@ -245,7 +245,7 @@ st.info(
 
 scenarios = df["Scenario"].unique()
 selected_scenarios = st.multiselect(
-    "Select Scenario",
+    "Pilih Skenario",
     scenarios,
     default=scenarios
 )
@@ -272,7 +272,7 @@ filtered_df["Cancellation Rate (%)"] = (
 # =========================================================
 
 with st.container(border=True):
-    st.subheader("⏳ Average Waiting Time")
+    st.subheader("⏳ Rata-rata Waktu Tunggu")
     st.line_chart(
         filtered_df,
         x="Scenario",
@@ -284,7 +284,7 @@ with st.container(border=True):
 # =========================================================
 
 with st.container(border=True):
-    st.subheader("✅ Completed Orders")
+    st.subheader("✅ Pesanan Selesai")
     st.bar_chart(
         filtered_df,
         x="Scenario",
@@ -296,7 +296,7 @@ with st.container(border=True):
 # =========================================================
 
 with st.container(border=True):
-    st.subheader("❌ Canceled Orders")
+    st.subheader("❌ Pesanan Dibatalkan")
     st.bar_chart(
         filtered_df,
         x="Scenario",
@@ -308,7 +308,7 @@ with st.container(border=True):
 # =========================================================
 
 with st.container(border=True):
-    st.subheader("📉 Cancellation Rate (%)")
+    st.subheader("📉 Tingkat Pembatalan (%)")
     st.bar_chart(
         filtered_df,
         x="Scenario",
@@ -319,7 +319,7 @@ with st.container(border=True):
 # METRICS
 # =========================================================
 
-st.subheader("📌 Summary Metrics")
+st.subheader("📌 Ringkasan Hasil")
 col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(
@@ -347,29 +347,46 @@ with col3:
     )
 
 # =========================================================
-# BEST SCENARIO
+# SKENARIO TERBAIK
 # =========================================================
 
-st.subheader("🏆 Best Scenario")
+st.subheader("🏆 Skenario Terbaik")
 
 best_scenario = filtered_df.loc[
     filtered_df["Average Waiting Time"].idxmin()
 ]
 
-st.success(
-    f"""
-    Scenario : {best_scenario['Scenario']}
-    Average Waiting Time : {best_scenario['Average Waiting Time']} menit
-    Completed Orders : {best_scenario['Completed Orders']}
-    Canceled Orders : {best_scenario['Canceled Orders']}
-    """
-)
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric(
+        "Skenario",
+        best_scenario["Scenario"]
+    )
+
+with col2:
+    st.metric(
+        "Waktu Tunggu",
+        f"{best_scenario['Average Waiting Time']} menit"
+    )
+
+with col3:
+    st.metric(
+        "Pesanan Selesai",
+        int(best_scenario["Completed Orders"])
+    )
+
+with col4:
+    st.metric(
+        "Pesanan Dibatalkan",
+        int(best_scenario["Canceled Orders"])
+    )
 
 # =========================================================
 # CONCLUSION
 # =========================================================
 
-st.subheader("📝 Conclusion")
+st.subheader("📝 Kesimpulan")
 
 st.write("""
 Berdasarkan hasil simulasi, performa sistem food delivery dipengaruhi oleh jumlah driver, kapasitas restoran, dan tingkat kedatangan pelanggan.
