@@ -205,23 +205,33 @@ st.dataframe(df)
 # =========================================================
 
 st.subheader("📖 Scenario Description")
+
 scenario_desc = pd.DataFrame({
     "Scenario": [
+        "Very Busy",
         "Normal",
-        "Peak Hour",
-        "Extra Driver",
-        "Low Patience"
+        "Medium Improvement",
+        "More Drivers",
+        "High Optimization"
     ],
     "Description": [
-        "Jumlah driver dan order seimbang",
-        "Jumlah order meningkat saat jam sibuk",
-        "Penambahan jumlah driver",
-        "Pelanggan memiliki tingkat kesabaran rendah"
+        "Kondisi beban pesanan sangat tinggi sehingga antrean dan waktu tunggu cenderung meningkat.",
+        "Kondisi operasional normal dengan keseimbangan antara jumlah pesanan dan sumber daya.",
+        "Peningkatan sumber daya untuk mengurangi antrean dan memperbaiki performa layanan.",
+        "Fokus pada penambahan kapasitas pengantaran untuk mempercepat proses delivery.",
+        "Kondisi optimal dengan pengelolaan sumber daya yang lebih efisien."
     ]
 })
 
 st.table(scenario_desc)
 
+st.info(
+    """
+    Setiap skenario digunakan untuk mengevaluasi pengaruh perubahan kondisi operasional
+    terhadap waktu tunggu pelanggan, jumlah pesanan yang berhasil diselesaikan,
+    dan jumlah pesanan yang dibatalkan.
+    """
+)
 
 # =========================================================
 # SCENARIO FILTER
