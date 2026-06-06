@@ -78,6 +78,15 @@ def load_data():
 df = load_data()
 
 # =========================================================
+# PLOTLY CONFIG
+# =========================================================
+
+plotly_config = {
+    "scrollZoom": True,
+    "displaylogo": False
+}
+
+# =========================================================
 # TITLE
 # =========================================================
 
@@ -283,15 +292,6 @@ filtered_df["Cancellation Rate (%)"] = (
 ) * 100
 
 # =========================================================
-# PLOTLY CONFIG
-# =========================================================
-
-plotly_config = {
-    "scrollZoom": True,
-    "displaylogo": False
-}
-
-# =========================================================
 # WAITING TIME CHART
 # =========================================================
 
@@ -424,8 +424,8 @@ with st.container(border=True):
         height=450
     )
 
-    st.plotly_chart(
-        fig_wait,
+   st.plotly_chart(
+        fig_compare,
         use_container_width=True,
         config=plotly_config
     )
