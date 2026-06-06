@@ -81,7 +81,7 @@ df = load_data()
 # TITLE
 # =========================================================
 
-st.title("🍔 Food Delivery Online Simulation Dashboard")
+st.title("🍔 Dashboard Simulasi Food Delivery Online")
 
 st.markdown("""
 Dashboard ini menampilkan hasil simulasi sistem food delivery online menggunakan pendekatan Agent-Based Modeling (ABM).
@@ -188,10 +188,24 @@ manual_df = pd.DataFrame({
 
 with st.container(border=True):
     st.subheader("📊 Visualisasi Simulasi")
-    st.bar_chart(
+
+    fig_manual = px.bar(
         manual_df,
         x="Metric",
-        y="Value"
+        y="Value",
+        text="Value"
+    )
+
+    fig_manual.update_layout(
+        paper_bgcolor="#FFF7ED",
+        plot_bgcolor="#FFF7ED",
+        height=400
+    )
+
+    st.plotly_chart(
+        fig_manual,
+        use_container_width=True,
+        config=plotly_config
     )
 
 # =========================================================
@@ -269,6 +283,15 @@ filtered_df["Cancellation Rate (%)"] = (
 ) * 100
 
 # =========================================================
+# PLOTLY CONFIG
+# =========================================================
+
+plotly_config = {
+    "scrollZoom": True,
+    "displaylogo": False
+}
+
+# =========================================================
 # WAITING TIME CHART
 # =========================================================
 
@@ -290,7 +313,8 @@ with st.container(border=True):
 
     st.plotly_chart(
         fig_wait,
-        use_container_width=True
+        use_container_width=True,
+        config=plotly_config
     )
 
 # =========================================================
@@ -312,9 +336,10 @@ with st.container(border=True):
         height=400
     )
 
-    st.plotly_chart(
-        fig_completed,
-        use_container_width=True
+   st.plotly_chart(
+        fig_wait,
+        use_container_width=True,
+        config=plotly_config
     )
 
 # =========================================================
@@ -336,9 +361,10 @@ with st.container(border=True):
         height=400
     )
 
-    st.plotly_chart(
-        fig_cancel,
-        use_container_width=True
+     st.plotly_chart(
+        fig_wait,
+        use_container_width=True,
+        config=plotly_config
     )
 
 # =========================================================
@@ -361,8 +387,9 @@ with st.container(border=True):
     )
 
     st.plotly_chart(
-        fig_rate,
-        use_container_width=True
+        fig_wait,
+        use_container_width=True,
+        config=plotly_config
     )
 
 # =========================================================
@@ -398,8 +425,9 @@ with st.container(border=True):
     )
 
     st.plotly_chart(
-        fig_compare,
-        use_container_width=True
+        fig_wait,
+        use_container_width=True,
+        config=plotly_config
     )
 
 # =========================================================
