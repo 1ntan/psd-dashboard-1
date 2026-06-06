@@ -96,7 +96,7 @@ Tujuan simulasi adalah menganalisis:
 # MANUAL INPUT SIMULATION
 # =========================================================
 
-st.sidebar.header("⚙️ Parameter Simulasi)
+st.sidebar.header("⚙️ Parameter Simulasi")
 
 input_drivers = st.sidebar.slider(
     "Number of Drivers",
