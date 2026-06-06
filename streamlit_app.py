@@ -302,7 +302,8 @@ with st.container(border=True):
         filtered_df,
         x="Scenario",
         y="Average Waiting Time",
-        markers=True
+        markers=True,
+        color_discrete_sequence=["#F97316"]
     )
 
     fig_wait.update_layout(
@@ -327,7 +328,8 @@ with st.container(border=True):
     fig_completed = px.bar(
         filtered_df,
         x="Scenario",
-        y="Completed Orders"
+        y="Completed Orders",
+        color_discrete_sequence=["#22C55E"]
     )
 
     fig_completed.update_layout(
@@ -352,7 +354,8 @@ with st.container(border=True):
     fig_cancel = px.bar(
         filtered_df,
         x="Scenario",
-        y="Canceled Orders"
+        y="Canceled Orders",
+        color_discrete_sequence=["#EF4444"]
     )
 
     fig_cancel.update_layout(
@@ -377,7 +380,8 @@ with st.container(border=True):
     fig_rate = px.bar(
         filtered_df,
         x="Scenario",
-        y="Cancellation Rate (%)"
+        y="Cancellation Rate (%)",
+        color_discrete_sequence=["#EAB308"]
     )
 
     fig_rate.update_layout(
@@ -414,7 +418,11 @@ with st.container(border=True):
         x="Scenario",
         y="Nilai",
         color="Metrik",
-        barmode="group"
+        barmode="group",
+        color_discrete_map={
+            "Completed Orders": "#22C55E",
+            "Canceled Orders": "#EF4444"
+        }
     )
 
     fig_compare.update_layout(
@@ -470,27 +478,25 @@ best_scenario = filtered_df.loc[
     filtered_df["Average Waiting Time"].idxmin()
 ]
 
-col1, col2, col3, col4 = st.columns(4)
+st.success(
+    f"Skenario terbaik: {best_scenario['Scenario']}"
+)
+
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.metric(
-        "Skenario",
-        best_scenario["Scenario"]
-    )
-
-with col2:
     st.metric(
         "Waktu Tunggu",
         f"{best_scenario['Average Waiting Time']} menit"
     )
 
-with col3:
+with col2:
     st.metric(
         "Pesanan Selesai",
         int(best_scenario["Completed Orders"])
     )
 
-with col4:
+with col3:
     st.metric(
         "Pesanan Dibatalkan",
         int(best_scenario["Canceled Orders"])
