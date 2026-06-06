@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from pathlib import Path
+import plotly.express as px
 
 # =========================================================
 # PAGE CONFIG
@@ -273,10 +274,23 @@ filtered_df["Cancellation Rate (%)"] = (
 
 with st.container(border=True):
     st.subheader("⏳ Rata-rata Waktu Tunggu")
-    st.line_chart(
+
+    fig_wait = px.line(
         filtered_df,
         x="Scenario",
-        y="Average Waiting Time"
+        y="Average Waiting Time",
+        markers=True
+    )
+
+    fig_wait.update_layout(
+        paper_bgcolor="#FFF7ED",
+        plot_bgcolor="#FFF7ED",
+        height=400
+    )
+
+    st.plotly_chart(
+        fig_wait,
+        use_container_width=True
     )
 
 # =========================================================
@@ -285,10 +299,22 @@ with st.container(border=True):
 
 with st.container(border=True):
     st.subheader("✅ Pesanan Selesai")
-    st.bar_chart(
+
+    fig_completed = px.bar(
         filtered_df,
         x="Scenario",
         y="Completed Orders"
+    )
+
+    fig_completed.update_layout(
+        paper_bgcolor="#FFF7ED",
+        plot_bgcolor="#FFF7ED",
+        height=400
+    )
+
+    st.plotly_chart(
+        fig_completed,
+        use_container_width=True
     )
 
 # =========================================================
@@ -297,10 +323,22 @@ with st.container(border=True):
 
 with st.container(border=True):
     st.subheader("❌ Pesanan Dibatalkan")
-    st.bar_chart(
+
+    fig_cancel = px.bar(
         filtered_df,
         x="Scenario",
         y="Canceled Orders"
+    )
+
+    fig_cancel.update_layout(
+        paper_bgcolor="#FFF7ED",
+        plot_bgcolor="#FFF7ED",
+        height=400
+    )
+
+    st.plotly_chart(
+        fig_cancel,
+        use_container_width=True
     )
 
 # =========================================================
@@ -309,10 +347,59 @@ with st.container(border=True):
 
 with st.container(border=True):
     st.subheader("📉 Tingkat Pembatalan (%)")
-    st.bar_chart(
+
+    fig_rate = px.bar(
         filtered_df,
         x="Scenario",
         y="Cancellation Rate (%)"
+    )
+
+    fig_rate.update_layout(
+        paper_bgcolor="#FFF7ED",
+        plot_bgcolor="#FFF7ED",
+        height=400
+    )
+
+    st.plotly_chart(
+        fig_rate,
+        use_container_width=True
+    )
+
+# =========================================================
+# PERBANDINGAN ANTAR SKENARIO
+# =========================================================
+
+with st.container(border=True):
+
+    st.subheader("📊 Perbandingan Antar Skenario")
+
+    comparison_df = filtered_df.melt(
+        id_vars="Scenario",
+        value_vars=[
+            "Completed Orders",
+            "Canceled Orders"
+        ],
+        var_name="Metrik",
+        value_name="Nilai"
+    )
+
+    fig_compare = px.bar(
+        comparison_df,
+        x="Scenario",
+        y="Nilai",
+        color="Metrik",
+        barmode="group"
+    )
+
+    fig_compare.update_layout(
+        paper_bgcolor="#FFF7ED",
+        plot_bgcolor="#FFF7ED",
+        height=450
+    )
+
+    st.plotly_chart(
+        fig_compare,
+        use_container_width=True
     )
 
 # =========================================================
